@@ -1,0 +1,24 @@
+server:
+  port: 8086
+spring:
+  application:
+    name: payment-service
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:5432/${DB_NAME:paymentdb}
+    username: ${DB_USER:ecommerce}
+    password: ${DB_PASSWORD:ecommerce}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+app:
+  jwt:
+    secret: ${JWT_SECRET:change-this-development-secret-change-this-development-secret}

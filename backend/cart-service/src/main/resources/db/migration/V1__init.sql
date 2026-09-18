@@ -1,0 +1,1 @@
+CREATE TABLE cart_items (id uuid PRIMARY KEY, customer_id uuid NOT NULL, product_id uuid NOT NULL, quantity integer NOT NULL, unit_price numeric(14,2) NOT NULL, CONSTRAINT uk_cart_product UNIQUE(customer_id,product_id));

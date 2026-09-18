@@ -1,0 +1,1 @@
+package com.ecommerce.inventory.service; import org.springframework.data.jpa.repository.*; import java.util.*; public interface InventoryRepository extends JpaRepository<Inventory,UUID>{Optional<Inventory> findByProductId(UUID id);}

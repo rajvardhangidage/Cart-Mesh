@@ -1,0 +1,1 @@
+CREATE TABLE products (id uuid PRIMARY KEY, vendor_id uuid NOT NULL, name varchar(120) NOT NULL, category varchar(120) NOT NULL, sku varchar(50) NOT NULL UNIQUE, description varchar(2000), price numeric(14,2) NOT NULL, active boolean NOT NULL DEFAULT true, created_at timestamptz NOT NULL); CREATE INDEX idx_product_vendor ON products(vendor_id);

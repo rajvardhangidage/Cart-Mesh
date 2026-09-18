@@ -1,0 +1,1 @@
+package com.ecommerce.order.service; import org.springframework.data.jpa.repository.*; import java.util.*; public interface OrderRepository extends JpaRepository<Order,UUID>{List<Order> findByCustomerIdOrderByCreatedAtDesc(UUID id);}

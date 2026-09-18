@@ -1,0 +1,1 @@
+CREATE DATABASE authdb; CREATE DATABASE productdb; CREATE DATABASE inventorydb; CREATE DATABASE cartdb; CREATE DATABASE orderdb; CREATE DATABASE paymentdb; CREATE DATABASE notificationdb;

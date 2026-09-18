@@ -1,0 +1,40 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: auth
+          uri: ${AUTH_URL:http://localhost:8081}
+          predicates: [Path=/api/auth/**]
+        - id: products
+          uri: ${PRODUCT_URL:http://localhost:8082}
+          predicates: [Path=/api/products/**]
+        - id: inventory
+          uri: ${INVENTORY_URL:http://localhost:8083}
+          predicates: [Path=/api/inventory/**]
+        - id: cart
+          uri: ${CART_URL:http://localhost:8084}
+          predicates: [Path=/api/cart/**]
+        - id: orders
+          uri: ${ORDER_URL:http://localhost:8085}
+          predicates: [Path=/api/orders/**]
+        - id: payments
+          uri: ${PAYMENT_URL:http://localhost:8086}
+          predicates: [Path=/api/payments/**]
+        - id: notifications
+          uri: ${NOTIFICATION_URL:http://localhost:8087}
+          predicates: [Path=/api/notifications/**]
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics

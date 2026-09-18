@@ -1,0 +1,1 @@
+CREATE TABLE payments (id uuid PRIMARY KEY, order_id uuid NOT NULL, amount numeric(14,2) NOT NULL, idempotency_key varchar(255) NOT NULL UNIQUE, status varchar(30) NOT NULL, created_at timestamptz NOT NULL);

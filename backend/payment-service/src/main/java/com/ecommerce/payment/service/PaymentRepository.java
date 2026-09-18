@@ -1,0 +1,1 @@
+package com.ecommerce.payment.service; import org.springframework.data.jpa.repository.*; import java.util.*; public interface PaymentRepository extends JpaRepository<Payment,UUID>{Optional<Payment> findByIdempotencyKey(String key);List<Payment> findByOrderId(UUID id);}

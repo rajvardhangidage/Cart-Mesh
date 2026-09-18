@@ -1,0 +1,1 @@
+package com.ecommerce.product.service; import org.springframework.data.domain.*; import org.springframework.data.jpa.repository.JpaRepository; import java.util.*; public interface ProductRepository extends JpaRepository<Product,UUID>{Page<Product> findByActiveTrueAndNameContainingIgnoreCase(String name,Pageable p); List<Product> findByVendorId(UUID vendorId);}

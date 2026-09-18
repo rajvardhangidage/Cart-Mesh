@@ -1,0 +1,3 @@
+package com.ecommerce.common.security;
+import io.jsonwebtoken.*; import io.jsonwebtoken.security.Keys; import javax.crypto.SecretKey; import java.nio.charset.StandardCharsets; import java.util.*;
+public final class JwtUtil { private JwtUtil(){} public static SecretKey key(String secret){ return Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8)); } public static String create(String secret,String userId,String role,long seconds){return Jwts.builder().subject(userId).claim("role",role).issuedAt(new Date()).expiration(new Date(System.currentTimeMillis()+seconds*1000)).signWith(key(secret)).compact();} public static Claims parse(String secret,String token){return Jwts.parser().verifyWith(key(secret)).build().parseSignedClaims(token).getPayload();} }

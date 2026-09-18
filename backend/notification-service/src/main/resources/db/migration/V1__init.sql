@@ -1,0 +1,1 @@
+CREATE TABLE notifications (id uuid PRIMARY KEY, user_id uuid NOT NULL, type varchar(40) NOT NULL, message varchar(1000) NOT NULL, read_flag boolean NOT NULL DEFAULT false, created_at timestamptz NOT NULL); CREATE INDEX idx_notification_user ON notifications(user_id);

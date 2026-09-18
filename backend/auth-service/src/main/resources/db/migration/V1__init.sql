@@ -1,0 +1,1 @@
+CREATE TABLE users (id uuid PRIMARY KEY, email varchar(255) NOT NULL UNIQUE, password_hash varchar(255) NOT NULL, role varchar(30) NOT NULL, enabled boolean NOT NULL DEFAULT true);

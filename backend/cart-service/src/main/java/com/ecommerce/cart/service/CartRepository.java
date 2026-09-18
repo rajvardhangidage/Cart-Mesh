@@ -1,0 +1,1 @@
+package com.ecommerce.cart.service; import org.springframework.data.jpa.repository.*; import java.util.*; public interface CartRepository extends JpaRepository<CartItem,UUID>{List<CartItem> findByCustomerId(UUID id);Optional<CartItem> findByCustomerIdAndProductId(UUID c,UUID p);void deleteByCustomerId(UUID id);}

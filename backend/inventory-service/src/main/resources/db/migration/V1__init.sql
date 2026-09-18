@@ -1,0 +1,1 @@
+CREATE TABLE inventory (id uuid PRIMARY KEY, product_id uuid NOT NULL UNIQUE, available integer NOT NULL, version bigint NOT NULL DEFAULT 0);
