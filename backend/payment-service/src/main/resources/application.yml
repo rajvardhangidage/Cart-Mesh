@@ -22,3 +22,8 @@ management:
 app:
   jwt:
     secret: ${JWT_SECRET:change-this-development-secret-change-this-development-secret}
+springdoc:
+  api-docs:
+    path: /api/payments/v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
