@@ -110,7 +110,7 @@ You can access the **unified Swagger Portal** on the API Gateway to browse and t
 | Service | Port | Base Path | Actuator Health | Swagger UI |
 | :--- | :--- | :--- | :--- | :--- |
 | **API Gateway (Unified Portal)** | `8080` | `/` | `http://localhost:8080/actuator/health` | `http://localhost:8080/swagger-ui.html` |
-=======
+
 ### Service Endpoints & Health Checks
 
 Each service exposes Spring Boot Actuator health endpoints. When running with OpenAPI / Swagger UI dependencies (`springdoc-openapi-starter-webmvc-ui`), documentation is available at the paths below:
