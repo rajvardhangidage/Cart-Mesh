@@ -101,7 +101,6 @@ flowchart LR
 
 ## API Documentation
 
-<<<<<<< HEAD
 ### Unified Swagger Portal & Service Endpoints
 
 All services are instrumented with OpenAPI 3 / Swagger UI via `springdoc-openapi-starter-webmvc-ui` (and `springdoc-openapi-starter-webflux-ui` on the Gateway).
@@ -119,7 +118,6 @@ Each service exposes Spring Boot Actuator health endpoints. When running with Op
 | Service | Port | Base Path | Actuator Health | Swagger UI |
 | :--- | :--- | :--- | :--- | :--- |
 | **API Gateway** | `8080` | `/` | `http://localhost:8080/actuator/health` | Gateway routed |
->>>>>>> bf6c635325a54d389eb09109062f7c94fdb136da
 | **Auth Service** | `8081` | `/api/auth` | `http://localhost:8081/actuator/health` | `http://localhost:8081/swagger-ui.html` |
 | **Product Service** | `8082` | `/api/products` | `http://localhost:8082/actuator/health` | `http://localhost:8082/swagger-ui.html` |
 | **Inventory Service** | `8083` | `/api/inventory` | `http://localhost:8083/actuator/health` | `http://localhost:8083/swagger-ui.html` |
@@ -150,7 +148,6 @@ Each service exposes Spring Boot Actuator health endpoints. When running with Op
 * Node.js 20+ & npm 10+
 * Docker & Docker Compose
 
-<<<<<<< HEAD
 ### Option A: Run Full Stack with Docker (Recommended)
 You can launch the entire ecosystem (PostgreSQL, Redis, Kafka, all 8 microservices, and the React frontend) with a single command:
 
@@ -172,7 +169,6 @@ docker compose down
 ### Option B: Run Locally with Maven & npm
 
 #### 1. Start Infrastructure Only
-=======
 ### Environment Variables
 Environment overrides can be set via `.env` (reference in [`.env.example`](file:///.env.example)):
 
@@ -185,7 +181,6 @@ VITE_API_URL=http://localhost:8080
 ```
 
 ### 1. Start Infrastructure
->>>>>>> bf6c635325a54d389eb09109062f7c94fdb136da
 Start PostgreSQL, Redis, and Kafka in the background:
 
 ```bash
@@ -193,11 +188,9 @@ docker compose -f infra/docker-compose.yml up -d
 ```
 *PostgreSQL automatically creates all 7 databases (`authdb`, `productdb`, etc.) on first launch via `infra/init-databases.sql`.*
 
-<<<<<<< HEAD
 #### 2. Build Backend
 =======
 ### 2. Build Backend
->>>>>>> bf6c635325a54d389eb09109062f7c94fdb136da
 Compile and package all Maven modules:
 
 ```bash
