@@ -43,6 +43,7 @@ public class CartController {
 
     @DeleteMapping("/{customerId}")
     @Operation(summary = "Clear cart", description = "Removes all items from a customer's cart")
+    @org.springframework.transaction.annotation.Transactional
     void clear(@PathVariable UUID customerId) {
         repo.deleteByCustomerId(customerId);
     }

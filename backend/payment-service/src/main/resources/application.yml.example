@@ -1,12 +1,12 @@
 server:
-  port: 8085
+  port: 8086
 spring:
   application:
-    name: order-service
+    name: payment-service
   datasource:
-    url: jdbc:postgresql://${DB_HOST:localhost}:5432/${DB_NAME:orderdb}
-    username: ${DB_USER:ecommerce}
-    password: ${DB_PASSWORD:ecommerce}
+    url: jdbc:postgresql://${DB_HOST:localhost}:5432/${DB_NAME:paymentdb}
+    username: ${DB_USER:your_db_username}
+    password: ${DB_PASSWORD:your_db_password}
   jpa:
     open-in-view: false
     hibernate:
@@ -21,9 +21,9 @@ management:
         include: health,info,metrics,prometheus
 app:
   jwt:
-    secret: ${JWT_SECRET:change-this-development-secret-change-this-development-secret}
+    secret: ${JWT_SECRET:your_example_jwt_secret_key_change_me_in_production_environment_32chars}
 springdoc:
   api-docs:
-    path: /api/orders/v3/api-docs
+    path: /api/payments/v3/api-docs
   swagger-ui:
     path: /swagger-ui.html

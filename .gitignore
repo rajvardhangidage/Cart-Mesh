@@ -1,8 +1,41 @@
+# Build outputs and dependencies
 **/target/
 node_modules/
 dist/
+build/
+*.tsbuildinfo
+
+# Application configuration (properties and YAML files)
+**/application*.properties
+**/application*.yml
+**/application*.yaml
+# Allow dummy / example configuration templates
+!**/application*.properties.example
+!**/application*.yml.example
+!**/application*.yaml.example
+!**/application*.example
+
+# Dockerfiles
+**/Dockerfile
+**/Dockerfile.*
+# Allow example Dockerfile templates
+!**/Dockerfile.example
+!**/Dockerfile.*.example
+
+# Environment files and credentials
 .env
+.env.*
+.env.local
+.env.*.local
+!.env.example
+
+# IDE and OS files
 .idea/
 .vscode/
-*.log
+*.iml
 .DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/

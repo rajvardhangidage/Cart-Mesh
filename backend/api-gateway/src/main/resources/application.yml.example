@@ -38,22 +38,3 @@ management:
     web:
       exposure:
         include: health,info,metrics
-
-springdoc:
-  swagger-ui:
-    path: /swagger-ui.html
-    urls:
-      - name: 1. Auth Service
-        url: /api/auth/v3/api-docs
-      - name: 2. Product Service
-        url: /api/products/v3/api-docs
-      - name: 3. Inventory Service
-        url: /api/inventory/v3/api-docs
-      - name: 4. Cart Service
-        url: /api/cart/v3/api-docs
-      - name: 5. Order Service
-        url: /api/orders/v3/api-docs
-      - name: 6. Payment Service
-        url: /api/payments/v3/api-docs
-      - name: 7. Notification Service
-        url: /api/notifications/v3/api-docs
