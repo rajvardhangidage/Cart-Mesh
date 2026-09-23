@@ -1,1 +1,1 @@
-CREATE TABLE orders (id uuid PRIMARY KEY, customer_id uuid NOT NULL, total numeric(14,2) NOT NULL, status varchar(30) NOT NULL, created_at timestamptz NOT NULL); CREATE INDEX idx_order_customer ON orders(customer_id);
+CREATE TABLE orders (id varchar(36) PRIMARY KEY, customer_id varchar(36) NOT NULL, total decimal(14,2) NOT NULL, status varchar(30) NOT NULL, created_at datetime(6) NOT NULL); CREATE INDEX idx_order_customer ON orders(customer_id);

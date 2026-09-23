@@ -4,13 +4,19 @@ spring:
   application:
     name: auth-service
   datasource:
-    url: jdbc:postgresql://${DB_HOST:localhost}:5432/${DB_NAME:authdb}
-    username: ${DB_USER:your_db_username}
-    password: ${DB_PASSWORD:your_db_password}
+    url: jdbc:mysql://${DB_HOST:localhost}:3306/${DB_NAME:authdb}?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    username: ${DB_USER:ecommerce}
+    password: ${DB_PASSWORD:ecommerce}
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     open-in-view: false
     hibernate:
       ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        type:
+          preferred_uuid_jdbc_type: VARCHAR
   flyway:
     enabled: true
     locations: classpath:db/migration
@@ -21,8 +27,7 @@ management:
         include: health,info,metrics,prometheus
 app:
   jwt:
-    # Use a secure, secret key with at least 256 bits for HMAC-SHA
-    secret: ${JWT_SECRET:your_example_jwt_secret_key_change_me_in_production_environment_32chars}
+    secret: ${JWT_SECRET:change-this-development-secret-change-this-development-secret}
 springdoc:
   api-docs:
     path: /api/auth/v3/api-docs

@@ -2,23 +2,24 @@ services:
   # =========================================================================
   # Infrastructure Backing Services
   # =========================================================================
-  postgres:
-    image: postgres:16-alpine
-    container_name: cartmesh-postgres
+  mysql:
+    image: mysql:8.0
+    container_name: cartmesh-mysql
     environment:
-      POSTGRES_USER: ecommerce
-      POSTGRES_PASSWORD: ecommerce
-      POSTGRES_DB: postgres
+      MYSQL_ROOT_PASSWORD: ecommerce
+      MYSQL_USER: ecommerce
+      MYSQL_PASSWORD: ecommerce
+      MYSQL_DATABASE: authdb
     ports:
-      - "5432:5432"
+      - "3306:3306"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - mysql_data:/var/lib/mysql
       - ./infra/init-databases.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ecommerce -d postgres"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "ecommerce", "-pecommerce"]
       interval: 5s
       timeout: 5s
-      retries: 5
+      retries: 10
     networks:
       - cartmesh-network
 
@@ -67,13 +68,13 @@ services:
     ports:
       - "8081:8081"
     environment:
-      DB_HOST: postgres
+      DB_HOST: mysql
       DB_NAME: authdb
       DB_USER: ecommerce
       DB_PASSWORD: ecommerce
       JWT_SECRET: change-this-development-secret-change-this-development-secret
     depends_on:
-      postgres:
+      mysql:
         condition: service_healthy
     networks:
       - cartmesh-network
@@ -86,13 +87,13 @@ services:
     ports:
       - "8082:8082"
     environment:
-      DB_HOST: postgres
+      DB_HOST: mysql
       DB_NAME: productdb
       DB_USER: ecommerce
       DB_PASSWORD: ecommerce
       JWT_SECRET: change-this-development-secret-change-this-development-secret
     depends_on:
-      postgres:
+      mysql:
         condition: service_healthy
     networks:
       - cartmesh-network
@@ -105,13 +106,13 @@ services:
     ports:
       - "8083:8083"
     environment:
-      DB_HOST: postgres
+      DB_HOST: mysql
       DB_NAME: inventorydb
       DB_USER: ecommerce
       DB_PASSWORD: ecommerce
       JWT_SECRET: change-this-development-secret-change-this-development-secret
     depends_on:
-      postgres:
+      mysql:
         condition: service_healthy
     networks:
       - cartmesh-network
@@ -124,13 +125,13 @@ services:
     ports:
       - "8084:8084"
     environment:
-      DB_HOST: postgres
+      DB_HOST: mysql
       DB_NAME: cartdb
       DB_USER: ecommerce
       DB_PASSWORD: ecommerce
       JWT_SECRET: change-this-development-secret-change-this-development-secret
     depends_on:
-      postgres:
+      mysql:
         condition: service_healthy
     networks:
       - cartmesh-network
@@ -143,13 +144,13 @@ services:
     ports:
       - "8085:8085"
     environment:
-      DB_HOST: postgres
+      DB_HOST: mysql
       DB_NAME: orderdb
       DB_USER: ecommerce
       DB_PASSWORD: ecommerce
       JWT_SECRET: change-this-development-secret-change-this-development-secret
     depends_on:
-      postgres:
+      mysql:
         condition: service_healthy
     networks:
       - cartmesh-network
@@ -162,13 +163,13 @@ services:
     ports:
       - "8086:8086"
     environment:
-      DB_HOST: postgres
+      DB_HOST: mysql
       DB_NAME: paymentdb
       DB_USER: ecommerce
       DB_PASSWORD: ecommerce
       JWT_SECRET: change-this-development-secret-change-this-development-secret
     depends_on:
-      postgres:
+      mysql:
         condition: service_healthy
     networks:
       - cartmesh-network
@@ -181,13 +182,13 @@ services:
     ports:
       - "8087:8087"
     environment:
-      DB_HOST: postgres
+      DB_HOST: mysql
       DB_NAME: notificationdb
       DB_USER: ecommerce
       DB_PASSWORD: ecommerce
       JWT_SECRET: change-this-development-secret-change-this-development-secret
     depends_on:
-      postgres:
+      mysql:
         condition: service_healthy
     networks:
       - cartmesh-network
@@ -237,7 +238,7 @@ services:
       - cartmesh-network
 
 volumes:
-  postgres_data: {}
+  mysql_data: {}
 
 networks:
   cartmesh-network:

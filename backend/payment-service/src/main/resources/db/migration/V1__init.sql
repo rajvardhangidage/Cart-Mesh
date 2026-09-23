@@ -1,1 +1,1 @@
-CREATE TABLE payments (id uuid PRIMARY KEY, order_id uuid NOT NULL, amount numeric(14,2) NOT NULL, idempotency_key varchar(255) NOT NULL UNIQUE, status varchar(30) NOT NULL, created_at timestamptz NOT NULL);
+CREATE TABLE payments (id varchar(36) PRIMARY KEY, order_id varchar(36) NOT NULL, amount decimal(14,2) NOT NULL, idempotency_key varchar(255) NOT NULL UNIQUE, status varchar(30) NOT NULL, created_at datetime(6) NOT NULL);

@@ -10,7 +10,7 @@ A multi-vendor e-commerce platform built as a distributed system with Spring Boo
 
 ## Architecture
 
-Client requests enter through a Spring Cloud API Gateway, which handles routing and CORS before forwarding requests to independent domain services. Each transactional service owns an isolated PostgreSQL database schema.
+Client requests enter through a Spring Cloud API Gateway, which handles routing and CORS before forwarding requests to independent domain services. Each transactional service owns an isolated MySQL database schema.
 
 ```mermaid
 flowchart LR
@@ -27,7 +27,7 @@ flowchart LR
         Notification["Notification Service<br/>(:8087)"]
     end
 
-    subgraph Storage["PostgreSQL 16 (Isolated Schemas)"]
+    subgraph Storage["MySQL 8.0 (Isolated Schemas)"]
         DB1[(authdb)]
         DB2[(productdb)]
         DB3[(inventorydb)]
@@ -69,7 +69,7 @@ flowchart LR
 | :--- | :--- | :--- |
 | **Backend Framework** | Spring Boot 3.4.5, Java 17 | Core runtime and REST APIs for all microservices |
 | **Gateway** | Spring Cloud Gateway 2024.0.2 | Single ingress point, route predicates, CORS handling |
-| **Database** | PostgreSQL 16 (Alpine) | Isolated database per service (`authdb`, `orderdb`, etc.) |
+| **Database** | MySQL 8.0 | Isolated database per service (`authdb`, `orderdb`, etc.) |
 | **Migrations** | Flyway | Versioned schema migrations (`V1__init.sql`) and catalog seed data (`V2__seed.sql`) |
 | **ORM & Concurrency** | Spring Data JPA / Hibernate | Data access, relationship modeling, and optimistic locking (`@Version`) |
 | **Security** | Spring Security, JJWT 0.12.6, BCrypt | Password hashing and stateless HMAC-SHA JWT access tokens |
@@ -92,7 +92,7 @@ flowchart LR
   Each service connects to its own independent database (`authdb`, `productdb`, `orderdb`, etc.). This enforces loose coupling, prevents cross-boundary SQL joins, and allows each domain schema to migrate independently via Flyway.
 
 * **Fixed-precision arithmetic for currency** ([`Product.java`](file:///backend/product-service/src/main/java/com/ecommerce/product/service/Product.java), [`CartItem.java`](file:///backend/cart-service/src/main/java/com/ecommerce/cart/service/CartItem.java), [`Order.java`](file:///backend/order-service/src/main/java/com/ecommerce/order/service/Order.java), [`Payment.java`](file:///backend/payment-service/src/main/java/com/ecommerce/payment/service/Payment.java))  
-  All monetary fields use `BigDecimal` mapped to PostgreSQL `numeric(14,2)`. This avoids binary floating-point rounding inaccuracies common with IEEE 754 `float`/`double` types during cart subtotal and tax calculations.
+  All monetary fields use `BigDecimal` mapped to MySQL `decimal(14,2)`. This avoids binary floating-point rounding inaccuracies common with IEEE 754 `float`/`double` types during cart subtotal and tax calculations.
 
 * **Composite unique constraint on cart items** ([`CartItem.java`](file:///backend/cart-service/src/main/java/com/ecommerce/cart/service/CartItem.java), [`CartController.java`](file:///backend/cart-service/src/main/java/com/ecommerce/cart/service/CartController.java))  
   A composite unique constraint on `(customer_id, product_id)` prevents race conditions from inserting duplicate rows for the same product, aggregating quantities atomically on repeat "Add to Cart" requests.
@@ -149,7 +149,7 @@ Each service exposes Spring Boot Actuator health endpoints. When running with Op
 * Docker & Docker Compose
 
 ### Option A: Run Full Stack with Docker (Recommended)
-You can launch the entire ecosystem (PostgreSQL, Redis, Kafka, all 8 microservices, and the React frontend) with a single command:
+You can launch the entire ecosystem (MySQL, Redis, Kafka, all 8 microservices, and the React frontend) with a single command:
 
 ```bash
 docker compose up --build -d
@@ -157,7 +157,7 @@ docker compose up --build -d
 
 - **Frontend Storefront**: `http://localhost:3000`
 - **API Gateway & Swagger Portal**: `http://localhost:8080/swagger-ui.html`
-- **PostgreSQL**: `localhost:5432`
+- **MySQL**: `localhost:3306`
 
 To shut down:
 ```bash
@@ -181,12 +181,12 @@ VITE_API_URL=http://localhost:8080
 ```
 
 ### 1. Start Infrastructure
-Start PostgreSQL, Redis, and Kafka in the background:
+Start MySQL, Redis, and Kafka in the background:
 
 ```bash
 docker compose -f infra/docker-compose.yml up -d
 ```
-*PostgreSQL automatically creates all 7 databases (`authdb`, `productdb`, etc.) on first launch via `infra/init-databases.sql`.*
+*MySQL automatically creates all 7 databases (`authdb`, `productdb`, etc.) on first launch via `infra/init-databases.sql`.*
 
 #### 2. Build Backend
 =======
@@ -252,7 +252,7 @@ multivendor-ecommerce-final/
 │   ├── payment-service/        # Idempotent payment capture and records (:8086)
 │   └── notification-service/   # User notifications and alerts (:8087)
 ├── frontend/                   # React 18, TypeScript, Vite storefront SPA (:5173)
-├── infra/                      # Docker Compose (PostgreSQL 16, Redis 7, Kafka 3.9) & init SQL
+├── infra/                      # Docker Compose (MySQL 8.0, Redis 7, Kafka 3.9) & init SQL
 ├── docs/                       # Architecture, DB schema, and event specs
 └── .github/workflows/          # GitHub Actions CI for backend and frontend builds
 ```
