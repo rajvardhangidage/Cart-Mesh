@@ -1,4 +1,4 @@
-# MarketHub
+# Cart Mesh
 
 A multi-vendor e-commerce platform built as a distributed system with Spring Boot microservices, Spring Cloud Gateway, and a React/TypeScript storefront. It handles vendor catalog management, unified customer carts, optimistic concurrency control for stock reservations, and idempotent payment processing with database-per-service isolation.
 
